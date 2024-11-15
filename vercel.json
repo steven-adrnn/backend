@@ -1,4 +1,11 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "virtual_lab/wsgi.py",
+      "use": "@vercel/nextjs"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
