@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "virtual_lab/wsgi.py",
-      "use": "@vercel/nextjs"
+      "use": "@vercel/python"
     }
   ],
   "routes": [
