@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'virtual_lab.wsgi.application'
+WSGI_APPLICATION = 'virtual_lab.wsgi.app'
 
 
 # Database
@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    'https://frontend-indol-psi-15.vercel.app/',
+    'https://frontend-indol-psi-15.vercel.app',
 ]
 
 REST_FRAMEWORK = {
