@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
+import environ
+
 
 load_dotenv()
 
@@ -46,6 +48,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'rest_framework_simplejwt',
+    'dbbackup',
+    'django_dbbackup', 
 
 ]
 
@@ -85,13 +89,17 @@ WSGI_APPLICATION = 'virtual_lab.wsgi.app'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+DBBACKUP_STORAGE = 'django_dbbackup.storage.filesystem_storage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'location': 'backups/',  # Direktori tempat backup disimpan
+}
+DBBACKUP_FILESYSTEM_DIRECTORY = 'backups'
 # DATABASE_URL = os.getenv('DATABASE_URL', default='sqlite:///db.sqlite3')
+env = environ.Env()
+environ.Env.read_env()
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db()
 }
 
 

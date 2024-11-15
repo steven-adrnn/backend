@@ -9,7 +9,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from supabase import create_client, Client
+import os
 
+supabase: Client = create_client(os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_ANON_KEY'))
 
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -50,4 +53,14 @@ class QuizProgressView(generics.ListCreateAPIView):
         return self.queryset.filter(user=user)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        user = self.request.user
+        quiz_progress = serializer.save(user=user)
+
+        # Menyimpan data quiz progress ke Supabase
+        supabase.table('quiz_progress').insert({
+            'user_id': user.id,
+            'current_question_index': quiz_progress.current_question_index,
+            'score': quiz_progress.score
+        }).execute()
+
+        return quiz_progress
