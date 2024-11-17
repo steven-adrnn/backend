@@ -11,5 +11,16 @@
       "src": "/(.*)",
       "dest": "virtual_lab/wsgi.py"
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' https://trusted-scripts.com; object-src 'none';"
+        }
+      ]
+    }
   ]
 }
